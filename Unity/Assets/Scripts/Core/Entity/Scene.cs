@@ -12,6 +12,8 @@ namespace ET
         
         public string Name { get; }
         
+        //scene的类型，对于游戏客户端来说，一般有两种，一种是main执行游戏逻辑
+        //一种netClient，用于传递网络消息
         public SceneType SceneType
         {
             get;

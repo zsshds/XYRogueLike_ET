@@ -23,6 +23,7 @@ namespace ET
 
         public async ETTask DownloadAsync()
         {
+            //非编辑器环境，通过ResourcesComponent加载热更新代码
             if (!Define.IsEditor)
             {
                 this.dlls = await ResourcesComponent.Instance.LoadAllAssetsAsync<TextAsset>($"Assets/Bundles/Code/Unity.Model.dll.bytes");

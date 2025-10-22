@@ -34,7 +34,7 @@ namespace ET
 			World.Instance.AddSingleton<FiberManager>();
 
 			await World.Instance.AddSingleton<ResourcesComponent>().CreatePackageAsync("DefaultPackage", true);
-			
+			//CodeLoader只要用于加载热更的代码
 			CodeLoader codeLoader = World.Instance.AddSingleton<CodeLoader>();
 			await codeLoader.DownloadAsync();
 			
