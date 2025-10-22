@@ -23,12 +23,6 @@ namespace ET.Client
             
             await EventSystem.Instance.PublishAsync(root, new AppStartInitFinish());
             
-            //异步方式发送事件
-            await EventSystem.Instance.PublishAsync(root, new TestEventStruct(){testVale = 10});
-            Log.Debug("after async TestEventStruct");
-            //同步方式发送事件
-            EventSystem.Instance.Publish(root, new TestEventStruct(){testVale = 99});
-            Log.Debug("after TestEventStruct");
         }
     }
 }
