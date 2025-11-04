@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using ET.Model.Server;
 
 namespace ET.Server
 {
@@ -15,7 +16,15 @@ namespace ET.Server
             root.AddComponent<MessageSender>();
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get(root.Fiber.Id);
             root.AddComponent<NetComponent, IPEndPoint, NetworkProtocol>(startSceneConfig.InnerIPPort, NetworkProtocol.UDP);
-
+            //添加数据库管理组件
+            root.AddComponent<DBManagerComponent>();
+            //添加一个用户和session的映射组件
+            root.AddComponent<AccountSessionsComponent>();
+            //添加token管理组件
+            root.AddComponent<TokenComponent>();
+            //添加区服信息管理组件
+            root.AddComponent<ServerInfoManagerComponent>();
+            
             await ETTask.CompletedTask;
         }
     }

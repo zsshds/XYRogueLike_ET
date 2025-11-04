@@ -23,6 +23,7 @@ namespace ET.Client
         {
             try
             {
+                //这里，传入UItype，需要有一个对应的uiEvent实现OnCreate方法
                 UI ui = await UIEventComponent.Instance.UIEvents[uiType].OnCreate(uiComponent, uiLayer);
                 return ui;
             }

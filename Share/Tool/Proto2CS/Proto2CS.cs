@@ -291,7 +291,8 @@ namespace ET
                 Console.WriteLine($"{newline}\n {e}");
             }
         }
-
+        
+        //类型转换，这里用了C#的新语法去简化switch
         private static string ConvertType(string type)
         {
             return type switch

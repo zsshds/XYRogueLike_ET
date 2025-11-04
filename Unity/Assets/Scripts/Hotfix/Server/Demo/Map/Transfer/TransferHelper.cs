@@ -22,9 +22,11 @@ namespace ET.Server
             
             M2M_UnitTransferRequest request = M2M_UnitTransferRequest.Create();
             request.OldActorId = unit.GetActorId();
+            //将unit实体序列话成一个字节数组
             request.Unit = unit.ToBson();
             foreach (Entity entity in unit.Components.Values)
             {
+                //如果unit上挂载的组件有实现ITransfer接口，那么也要序列化后存入Entitys中
                 if (entity is ITransfer)
                 {
                     request.Entitys.Add(entity.ToBson());

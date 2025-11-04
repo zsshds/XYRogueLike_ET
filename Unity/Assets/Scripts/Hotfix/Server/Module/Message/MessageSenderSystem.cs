@@ -48,6 +48,7 @@ namespace ET.Server
             IResponse response;
             if (fiber.Process == actorId.Process)
             {
+                //同一个进程不同纤程
                 response = await fiber.Root.GetComponent<ProcessInnerSender>().Call(actorId, request, needException: needException);
             }
             else

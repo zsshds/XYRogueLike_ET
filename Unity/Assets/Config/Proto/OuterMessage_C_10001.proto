@@ -1,5 +1,5 @@
-syntax = "proto3";
-package ET;
+syntax = "proto3"; //代表使用proto3版本格式
+package ET; //表示命名空间
 
 message HttpGetRouterResponse
 {
@@ -232,4 +232,167 @@ message G2C_Benchmark // ISessionResponse
 	int32 RpcId = 1;
 	int32 Error = 2;
 	string Message = 3;
+}
+
+//ResponseType R2C_LoginAccount
+message C2R_LoginAccount // ISessionRequest
+{
+	//定义消息时必须严格按照，要求格式编写
+	//在c#Proto2CS，会将proto转至为C#类，为MP使用，MP主要就是快
+	int32 RpcId = 1;
+	string Account = 2;
+	string Password = 3;
+}
+
+message R2C_LoginAccount // ISessionResponse
+{
+	//以下三个变量是固定的
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string Token = 4;
+}
+
+message A2C_Disconnect // ISessionMessage
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+message ServerInfosProto
+{
+	int32 Id = 1;
+	int32 Status = 2;
+	string ServerName = 3;
+}
+
+// ResponseType R2C_GetServerInfos
+message C2R_GetServerInfos // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Token = 2;
+	string Account = 3;
+}
+
+message R2C_GetServerInfos // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	repeated ServerInfosProto ServerInfosList = 4;
+}
+
+message RoleInfoProto
+{
+	int64 Id = 1;
+	string Name = 2;
+	int32 State = 3;
+	string Account = 4;
+	int64 LastLoginTime = 5;
+	int64 CreateTime = 6;
+	int32 ServerId = 7;
+}
+
+// ResponseType R2C_GetRoles
+message C2R_GetRoles // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Token = 2;
+	string Account = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_GetRoles // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	repeated RoleInfoProto RoleInfo = 4;
+}
+
+// ResponseType R2C_CreatRole
+message C2R_CreateRole // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Token = 2;
+	string Account = 3;
+	string Name = 4;
+	int32 ServerId = 5;
+}
+
+message R2C_CreatRole // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	RoleInfoProto roleInfo = 4;
+}
+
+// ResponseType R2C_DeleteRole
+message C2R_DeleteRole // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Token = 2;
+	string Account = 3;
+	int64 RoleInfoId = 4;
+	int32 ServerId = 5;
+}
+
+message R2C_DeleteRole // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 DeleteRoleInfoId = 4;
+}
+
+// ResponseType R2C_GetRealmKey
+message C2R_GetRealmKey // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Token = 2;
+	string Account = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_GetRealmKey // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string Address = 4;
+	int64 Key = 5;
+	int64 GateId = 6;
+}
+
+// ResponseType G2C_LoginGameGate
+message C2G_LoginGameGate // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Account = 2;
+	int64 Key = 3;
+	int64 RoleId = 4;
+}
+
+message G2C_LoginGameGate // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 PlayerId = 4;
+}
+
+// ResponseType G2C_EnterGame
+message C2G_EnterGame // ISessionRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_EnterGame // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 MyUnitId = 4;
 }

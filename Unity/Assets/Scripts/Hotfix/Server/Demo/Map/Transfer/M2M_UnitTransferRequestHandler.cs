@@ -9,11 +9,12 @@ namespace ET.Server
         protected override async ETTask Run(Scene scene, M2M_UnitTransferRequest request, M2M_UnitTransferResponse response)
         {
             UnitComponent unitComponent = scene.GetComponent<UnitComponent>();
+            //反序列话，unit实体，并添加到unitComponent中管理
             Unit unit = MongoHelper.Deserialize<Unit>(request.Unit);
 
             unitComponent.AddChild(unit);
             unitComponent.Add(unit);
-
+            //反序列话unit上挂载的组件，添加到unit中
             foreach (byte[] bytes in request.Entitys)
             {
                 Entity entity = MongoHelper.Deserialize<Entity>(bytes);
@@ -40,7 +41,7 @@ namespace ET.Server
             // 加入aoi
             unit.AddComponent<AOIEntity, int, float3>(9 * 1000, unit.Position);
 
-            // 解锁location，可以接收发给Unit的消息
+            // 解锁location，可以接收发给Unit的消息 在TransferHelper中锁定的
             await scene.Root().GetComponent<LocationProxyComponent>().UnLock(LocationType.Unit, unit.Id, request.OldActorId, unit.GetActorId());
         }
     }

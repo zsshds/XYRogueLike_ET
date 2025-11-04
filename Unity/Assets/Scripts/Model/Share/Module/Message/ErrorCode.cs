@@ -13,5 +13,21 @@ namespace ET
         // 这里配置逻辑层的错误码
         // 110000 - 200000是抛异常的错误
         // 200001以上不抛异常
+
+        public const int ERR_LoginInfoEmpty = 200002;
+        public const int ERR_LoginPasswordError = 200003;
+        public const int ERR_RequestRepeatedly = 200004;
+        public const int ERR_AccountInBlackListError = 200005;
+        public const int ERR_TokenError = 200006;
+        public const int ERR_RoleNameNull = 200007;
+        public const int ERR_RoleNameSame = 200008;
+        public const int ERR_RoleNotExist = 200009;
+        public const int ERR_ConnectGateKetError = 200010;
+        public const int ERR_SessionIdError = 200011;
+        public const int ERR_OtherAccountLogin = 200012;
+        public const int ERR_SessionPlayerError = 200013;
+        public const int ERR_NonePlayerError = 200014;
+        public const int ERR_EnterGameError = 200015;
+        public const int ERR_ReEnterGameError = 200016;
     }
 }

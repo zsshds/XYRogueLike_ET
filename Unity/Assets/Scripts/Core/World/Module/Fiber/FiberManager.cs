@@ -79,6 +79,7 @@ namespace ET
                 {
                     try
                     {
+                        //触发FiberInit事件，也可以理解为，这个FiberInit是一个虚函数，主要是invoke必须有实现，publish不需要有实现
                         // 根据Fiber的SceneType分发Init,必须在Fiber线程中执行
                         await EventSystem.Instance.Invoke<FiberInit, ETTask>((long)sceneType, new FiberInit() {Fiber = fiber});
                         tcs.SetResult(true);

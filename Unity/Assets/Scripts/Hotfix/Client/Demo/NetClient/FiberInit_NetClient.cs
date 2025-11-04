@@ -11,6 +11,8 @@
             root.AddComponent<CoroutineLockComponent>();
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<FiberParentComponent>();
+            //添加一个net组件
+            //root.AddComponent<NetComponent>();
             await ETTask.CompletedTask;
         }
     }

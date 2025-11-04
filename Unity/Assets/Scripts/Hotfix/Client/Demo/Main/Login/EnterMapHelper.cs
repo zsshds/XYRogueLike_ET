@@ -9,6 +9,7 @@ namespace ET.Client
         {
             try
             {
+                //这里session链接的是gate网关服务器，现在要创建的是在map服务器中的unit映射对象实体
                 G2C_EnterMap g2CEnterMap = await root.GetComponent<ClientSenderComponent>().Call(C2G_EnterMap.Create()) as G2C_EnterMap;
                 
                 // 等待场景切换完成

@@ -10,6 +10,7 @@ namespace ET.Client
 		[EntitySystem]
 		private static void Awake(this UILoginComponent self)
 		{
+			//通过引用组件获取UI游戏物体上挂载的子游戏物体
 			ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
 			self.loginBtn = rc.Get<GameObject>("LoginBtn");
 			

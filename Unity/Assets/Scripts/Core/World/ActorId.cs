@@ -10,9 +10,9 @@ namespace ET
     public partial struct Address
     {
         [MemoryPackOrder(0)]
-        public int Process;
+        public int Process; //进程ID
         [MemoryPackOrder(1)]
-        public int Fiber;
+        public int Fiber; //纤程ID
         
         public bool Equals(Address other)
         {
@@ -51,6 +51,7 @@ namespace ET
         }
     }
     
+    //该地址数据结构， 是为了找到具体进程中具体纤程中具体实体(Actor-挂在邮箱组件的实体)
     [MemoryPackable]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public partial struct ActorId
