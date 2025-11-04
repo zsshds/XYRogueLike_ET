@@ -6,6 +6,11 @@
         protected override async ETTask Run(Scene scene, Main2NetClient_LoginGame request, NetClient2Main_LoginGame response)
         {
             string account = request.Account;
+            //销毁原先用于连接realm的session
+            if (scene.GetComponent<SessionComponent>().Session != null)
+            {
+                scene.GetComponent<SessionComponent>().Session.Dispose();
+            }
             //创建一个gate session 并保存到sessionComponent中
             NetComponent netComponent = scene.GetComponent<NetComponent>();
             Session gateSession = await netComponent.CreateRouterSession(NetworkHelper.ToIPEndPoint(request.GateAddress), account, account);

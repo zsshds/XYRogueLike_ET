@@ -49,7 +49,7 @@
 
                     PlayerComponent playerComponent = root.GetComponent<PlayerComponent>();
                     Player player = playerComponent.GetByAccount(account);
-                    if (player != null)
+                    if (player == null)
                     {
                         player = playerComponent.AddChildWithId<Player, string>(request.RoleId, account);
                         player.UnitId = request.RoleId;

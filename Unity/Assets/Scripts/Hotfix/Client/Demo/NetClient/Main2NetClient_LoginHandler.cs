@@ -29,8 +29,11 @@ namespace ET.Client
             C2R_LoginAccount c2RLoginAccount = C2R_LoginAccount.Create();
             //R2C_Login r2CLogin;
             R2C_LoginAccount r2CLoginAccount;
-            using (Session session = await netComponent.CreateRouterSession(realmAddress, account, password))
-            {
+            Session session = await netComponent.CreateRouterSession(realmAddress, account, password);
+            session.AddComponent<ClientSessionErrorComponent>();
+            //这里有大坑，如果使用using包裹session，执行完成后session消耗，在调用clientSenderComponent.Call是拿不到session的 操！！！
+            //using(Session session = await netComponent.CreateRouterSession(realmAddress, account, password))
+            //{
                 // C2R_Login c2RLogin = C2R_Login.Create();
                 // c2RLogin.Account = account;
                 // c2RLogin.Password = password;
@@ -56,7 +59,7 @@ namespace ET.Client
                 response.ToKen = r2CLoginAccount.Token;
                 response.Message = r2CLoginAccount.Message;
                 response.Error = r2CLoginAccount.Error;
-            }
+            //}
 
             // // 创建一个gate Session,并且保存到SessionComponent中
             // Session gateSession = await netComponent.CreateRouterSession(NetworkHelper.ToIPEndPoint(r2CLogin.Address), account, password);

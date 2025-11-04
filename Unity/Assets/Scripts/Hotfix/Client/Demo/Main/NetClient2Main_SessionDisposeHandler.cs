@@ -5,7 +5,10 @@
     {
         protected override async ETTask Run(Scene entity, NetClient2Main_SessionDispose message)
         {
-            Log.Error($"session dispose, error: {message.Error}");
+            if (message.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error($"session dispose, error: {message.Error}");
+            }
             await ETTask.CompletedTask;
         }
     }

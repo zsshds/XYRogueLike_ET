@@ -33,8 +33,6 @@ namespace ET.Server
             }
             //这里可以对账号密码加上正则判断
 
-
-
             CoroutineLockComponent coroutineLockComponent = session.Root().GetComponent<CoroutineLockComponent>();
             using (session.AddComponent<SessionLockingComponent>())
             {

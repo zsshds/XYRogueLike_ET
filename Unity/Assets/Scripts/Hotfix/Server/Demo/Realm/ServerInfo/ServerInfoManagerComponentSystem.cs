@@ -43,6 +43,8 @@
                 newServerInfo.Status = (int)ServerStatus.Normal;
                 self.ServerInfoList.Add(newServerInfo);
             }
+            int a = self.ServerInfoList.Count;
+            Log.Info($"加载服务器信息完成，数量为：{a}");
         }
     }
 }
