@@ -67,6 +67,8 @@ namespace ET
 		public string DBName { get; set; }
 		/// <summary>ZoneType</summary>
 		public int ZoneType { get; set; }
+		/// <summary>区服名称</summary>
+		public string ZoneName { get; set; }
 
 	}
 }
