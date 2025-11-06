@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <graph id="n2_i0ha" name="n2" xy="1,-1" size="1920,1080" type="rect" fillColor="#ff99ccff">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </graph>
+    <component id="n1_i0ha" name="Btn_Select" src="i0ha1" fileName="Component/LoginButton.xml" xy="700,768" size="487,116">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+      <Button title="登录" titleFontSize="60"/>
+    </component>
+  </displayList>
+</component>
