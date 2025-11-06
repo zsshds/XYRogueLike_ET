@@ -1,4 +1,8 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using FairyGUI;
+using FairyGUIEditor;
+using FUIEditor;
+using UnityEditor;
 using UnityEngine;
 using YooAsset;
 
@@ -34,11 +38,50 @@ namespace ET
         private BuildOptions buildOptions;
 
         private GlobalConfig globalConfig;
+        
+        private bool loaded = false;
+        private List<string> packageNameList = new();
+        private string[] packageNames = { };
+        private int packageIndex = 0;
 
         [MenuItem("ET/Build Tool", false, ETMenuItemPriority.BuildTool)]
         public static void ShowWindow()
         {
             GetWindow<BuildEditor>(DockDefine.Types);
+        }
+        
+        private void LoadPackages()
+        {
+            if (Application.isPlaying || loaded)
+            {
+                return;
+            }
+
+            loaded = true;
+
+            EditorToolSet.ReloadPackages();
+
+            packageNameList.Clear();
+            packageNameList.Add("全部导出");
+            List<UIPackage> pkgs = UIPackage.GetPackages();
+            int cnt = pkgs.Count;
+            for (int i = 0; i < cnt; i++)
+            {
+                packageNameList.Add(pkgs[i].name);
+            }
+
+            packageNames = packageNameList.ToArray();
+        }
+
+        private void ReloadPackages()
+        {
+            if (!Application.isPlaying)
+            {
+                loaded = false;
+                LoadPackages();
+            }
+            else
+                EditorUtility.DisplayDialog("FairyGUI", "Cannot run in play mode.", "OK");
         }
 
         private void OnEnable()
@@ -63,6 +106,7 @@ namespace ET
 
         private void OnGUI()
         {
+            LoadPackages();
             EditorGUILayout.LabelField("PlatformType ");
             this.platformType = (PlatformType)EditorGUILayout.EnumPopup(platformType);
 
@@ -123,6 +167,37 @@ namespace ET
             }
 
             GUILayout.Space(5);
+            
+            // FairyGUI
+            GUILayout.Label("");
+            GUILayout.Label("FairyGUI");
+
+            GUILayout.Space(5);
+            EditorGUILayout.BeginHorizontal();
+            {
+                packageIndex = EditorGUILayout.Popup("选择要导出的包名", packageIndex, packageNames, GUILayout.Width(300f));
+
+                if (GUILayout.Button("FUI代码生成"))
+                {
+                    if (packageIndex == 0)
+                    {
+                        FUICodeSpawner.FUICodeSpawn(packageNames);
+                    }
+                    else
+                    {
+                        FUICodeSpawner.FUICodeSpawn(packageNames[packageIndex], packageNames);
+                    }
+
+                    ShowNotification(new GUIContent("FUI代码生成成功！"));
+                }
+
+                // 导出新包后，刷新包名。
+                if (GUILayout.Button("刷新"))
+                {
+                    ReloadPackages();
+                }
+            }
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

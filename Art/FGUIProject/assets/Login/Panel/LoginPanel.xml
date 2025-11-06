@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <graph id="n0_i0ha" name="n0" xy="3,-1" size="1917,1081" type="rect" fillColor="#ff9966ff">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </graph>
+    <text id="n8_i0ha" name="n8" xy="470,194" size="249,120" group="n4_i0ha" fontSize="60" align="right" vAlign="middle" autoSize="none" text="用户名：">
+      <relation target="n2_i0ha" sidePair="left-right"/>
+    </text>
+    <graph id="n2_i0ha" name="n2" xy="721,191" size="744,128" group="n4_i0ha" type="rect">
+      <relation target="" sidePair="center-center"/>
+    </graph>
+    <text id="n1_i0ha" name="TxtIn_Account" xy="725,194" size="741,124" group="n4_i0ha" fontSize="60" vAlign="middle" autoSize="none" text="请输入用户名..." input="true">
+      <relation target="n2_i0ha" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </text>
+    <group id="n4_i0ha" name="AccountGroup" xy="470,191" size="996,128" group="n3_i0ha"/>
+    <graph id="n5_i0ha" name="n5" xy="721,454" size="744,128" group="n7_i0ha" type="rect">
+      <relation target="" sidePair="center-center"/>
+    </graph>
+    <text id="n9_i0ha" name="n9" xy="469,458" size="249,120" group="n7_i0ha" fontSize="60" align="right" vAlign="middle" autoSize="none" text="密码：">
+      <relation target="n5_i0ha" sidePair="left-right"/>
+    </text>
+    <text id="n6_i0ha" name="TxtIn_Pasword" xy="722,457" size="741,124" group="n7_i0ha" fontSize="60" vAlign="middle" autoSize="none" text="请输入密码..." input="true">
+      <relation target="n5_i0ha" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </text>
+    <group id="n7_i0ha" name="PoswordGroup" xy="469,454" size="996,128" group="n3_i0ha"/>
+    <group id="n3_i0ha" name="InputGroup" xy="469,191" size="997,391" advanced="true">
+      <relation target="" sidePair="middle-middle"/>
+    </group>
+    <component id="n10_i0ha" name="n10" src="i0ha1" fileName="Component/LoginButton.xml" xy="713,787" size="487,116">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+      <Button title="登录" titleFontSize="60"/>
+    </component>
+  </displayList>
+</component>
