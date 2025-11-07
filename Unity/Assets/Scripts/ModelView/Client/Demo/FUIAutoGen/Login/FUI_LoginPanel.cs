@@ -11,6 +11,7 @@ namespace ET.Client.Login
         public GTextInput TxtIn_Account;
         public GTextInput TxtIn_Pasword;
         public GGroup InputGroup;
+        public ET.Client.Login.FUI_LoginButton Btn_Login;
         public const string URL = "ui://9q0q76hci0ha0";
 
         public static FUI_LoginPanel CreateInstance()
@@ -24,6 +25,7 @@ namespace ET.Client.Login
             TxtIn_Account = (GTextInput)GetChildAt(3);
             TxtIn_Pasword = (GTextInput)GetChildAt(6);
             InputGroup = (GGroup)GetChildAt(7);
+            Btn_Login = (ET.Client.Login.FUI_LoginButton)GetChildAt(8);
         }
     }
 }

@@ -27,7 +27,7 @@
     <group id="n3_i0ha" name="InputGroup" xy="469,191" size="997,391" advanced="true">
       <relation target="" sidePair="middle-middle"/>
     </group>
-    <component id="n10_i0ha" name="n10" src="i0ha1" fileName="Component/LoginButton.xml" xy="713,787" size="487,116">
+    <component id="n10_i0ha" name="Btn_Login" src="i0ha1" fileName="Component/LoginButton.xml" xy="713,787" size="487,116">
       <relation target="" sidePair="center-center,bottom-bottom"/>
       <Button title="登录" titleFontSize="60"/>
     </component>

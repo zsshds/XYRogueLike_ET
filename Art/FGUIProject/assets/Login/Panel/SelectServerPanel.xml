@@ -4,9 +4,11 @@
     <graph id="n2_i0ha" name="n2" xy="1,-1" size="1920,1080" type="rect" fillColor="#ff99ccff">
       <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
     </graph>
-    <component id="n1_i0ha" name="Btn_Select" src="i0ha1" fileName="Component/LoginButton.xml" xy="700,768" size="487,116">
-      <relation target="" sidePair="center-center,bottom-bottom"/>
-      <Button title="登录" titleFontSize="60"/>
-    </component>
+    <list id="n3_nubc" name="n3" xy="217,174" size="1488,732" layout="flow_hz" overflow="scroll" colGap="50" defaultItem="ui://9q0q76hcnubc3" align="center" vAlign="middle">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <item title="服务器1"/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>

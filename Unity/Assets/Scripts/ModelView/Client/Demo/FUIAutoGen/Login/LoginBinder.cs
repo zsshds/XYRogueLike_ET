@@ -12,6 +12,7 @@ namespace ET.Client
             UIObjectFactory.SetPackageItemExtension(ET.Client.Login.FUI_LoginPanel.URL, typeof(ET.Client.Login.FUI_LoginPanel));
             UIObjectFactory.SetPackageItemExtension(ET.Client.Login.FUI_LoginButton.URL, typeof(ET.Client.Login.FUI_LoginButton));
             UIObjectFactory.SetPackageItemExtension(ET.Client.Login.FUI_SelectServerPanel.URL, typeof(ET.Client.Login.FUI_SelectServerPanel));
+            UIObjectFactory.SetPackageItemExtension(ET.Client.Login.FUI_ServerInfoButton.URL, typeof(ET.Client.Login.FUI_ServerInfoButton));
         }
     }
 }

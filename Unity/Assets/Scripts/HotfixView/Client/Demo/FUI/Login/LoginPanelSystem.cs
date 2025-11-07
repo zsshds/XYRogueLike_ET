@@ -7,11 +7,19 @@ namespace ET.Client
         [EntitySystem]
         private static void Awake(this LoginPanel self)
         {
+            self.FUILoginPanel.Btn_Login.AddListner(self.OnLoginClick);
         }
 
         [EntitySystem]
         private static void Show(this LoginPanel self)
         {
+        }
+        
+        private static void OnLoginClick(this LoginPanel self)
+        {
+            LoginHelper.Login(self.Root(), 
+                self.FUILoginPanel.TxtIn_Account.text, 
+                self.FUILoginPanel.TxtIn_Pasword.text).Coroutine();
         }
     }
 }

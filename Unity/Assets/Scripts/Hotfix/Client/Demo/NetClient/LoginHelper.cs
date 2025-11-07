@@ -24,21 +24,21 @@ namespace ET.Client
             AccountComponent accountComponent = root.AddComponent<AccountComponent>();
             accountComponent.SetLoginMapInfo(Token, account);
             
-            // //登录后，获取服务器列表
-            // C2R_GetServerInfos c2RGetServerInfos = C2R_GetServerInfos.Create();
-            // c2RGetServerInfos.Account = account;
-            // c2RGetServerInfos.Token = Token;
-            // //这里直接使用Call函数的原因是，session已经被创建并保留下来了
-            // R2C_GetServerInfos r2CGetServerInfos = await clientSenderComponent.Call(c2RGetServerInfos) as R2C_GetServerInfos;
-            // if (r2CGetServerInfos.Error != ErrorCode.ERR_Success)
-            // {
-            //     Log.Error("请求服务器列表失败");
-            //     return;
-            // }
-            //
-            // ServerInfosProto serverInfosProto = r2CGetServerInfos.ServerInfosList[0];
-            // Log.Info($"请求服务器列表成功，区服名称：{serverInfosProto.ServerName} 区服ID：{serverInfosProto.Id}");
-            //
+            //登录后，获取服务器列表
+            C2R_GetServerInfos c2RGetServerInfos = C2R_GetServerInfos.Create();
+            c2RGetServerInfos.Account = account;
+            c2RGetServerInfos.Token = Token;
+            //这里直接使用Call函数的原因是，session已经被创建并保留下来了
+            R2C_GetServerInfos r2CGetServerInfos = await clientSenderComponent.Call(c2RGetServerInfos) as R2C_GetServerInfos;
+            if (r2CGetServerInfos.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("请求服务器列表失败");
+                return;
+            }
+            
+            ServerInfosProto serverInfosProto = r2CGetServerInfos.ServerInfosList[0];
+            Log.Info($"请求服务器列表成功，区服名称：{serverInfosProto.ServerName} 区服ID：{serverInfosProto.Id}");
+            
             // //获取区服角色列表
             // C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
             // c2RGetRoles.Token = Token;
