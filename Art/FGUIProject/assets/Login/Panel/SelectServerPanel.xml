@@ -4,7 +4,7 @@
     <graph id="n2_i0ha" name="n2" xy="1,-1" size="1920,1080" type="rect" fillColor="#ff99ccff">
       <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
     </graph>
-    <list id="n3_nubc" name="n3" xy="217,174" size="1488,732" layout="flow_hz" overflow="scroll" colGap="50" defaultItem="ui://9q0q76hcnubc3" align="center" vAlign="middle">
+    <list id="n3_nubc" name="List_ServerBtn" xy="217,174" size="1488,732" layout="flow_hz" overflow="scroll" colGap="50" defaultItem="ui://9q0q76hcnubc3" align="center" vAlign="middle">
       <relation target="" sidePair="center-center,middle-middle"/>
       <item title="服务器1"/>
       <item/>

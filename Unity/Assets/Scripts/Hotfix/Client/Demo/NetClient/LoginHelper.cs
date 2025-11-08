@@ -1,5 +1,6 @@
 namespace ET.Client
 {
+    [FriendOfAttribute(typeof(ET.ServerInfo))]
     public static class LoginHelper
     {
         public static async ETTask Login(Scene root, string account, string password)
@@ -19,11 +20,11 @@ namespace ET.Client
             }
             Log.Info($"========= {account} 已经登录成功 =========");
             string Token = response.ToKen;
-            
+
             //创建account组件
             AccountComponent accountComponent = root.AddComponent<AccountComponent>();
             accountComponent.SetLoginMapInfo(Token, account);
-            
+
             //登录后，获取服务器列表
             C2R_GetServerInfos c2RGetServerInfos = C2R_GetServerInfos.Create();
             c2RGetServerInfos.Account = account;
@@ -35,10 +36,18 @@ namespace ET.Client
                 Log.Error("请求服务器列表失败");
                 return;
             }
+
+            ServerInfoComponent serverInfoComponent = root.AddComponent<ServerInfoComponent>();
+            foreach (var serverInfoProto in r2CGetServerInfos.ServerInfosList)
+            {
+                ServerInfo serverInfo = serverInfoComponent.AddChildWithId<ServerInfo>(serverInfoProto.Id);
+                serverInfo.FromMessage(serverInfoProto);
+                serverInfoComponent.AddServerInfo(serverInfo);
+                Log.Info($"区服名称：{serverInfoProto.ServerName} 区服ID：{serverInfoProto.Id}, 状态：{serverInfoProto.Status}, 数据库名称：{serverInfoProto.DBName}");
+            }
             
-            ServerInfosProto serverInfosProto = r2CGetServerInfos.ServerInfosList[0];
-            Log.Info($"请求服务器列表成功，区服名称：{serverInfosProto.ServerName} 区服ID：{serverInfosProto.Id}");
             
+
             // //获取区服角色列表
             // C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
             // c2RGetRoles.Token = Token;
@@ -92,7 +101,7 @@ namespace ET.Client
             // //添加roleInfo组件
             // RoleInfo roleInfo = accountComponent.AddChildWithId<RoleInfo>(0);
             // roleInfo.FromMessage(roleInfoProto);
-            
+
             // NetClient2Main_LoginGame netClient2MainLoginGame =
             //         await clientSenderComponent.LoginGameAsync(account, r2CGetRealmKey.Key, roleInfoProto.Id, r2CGetRealmKey.Address);
             // if (netClient2MainLoginGame.Error != ErrorCode.ERR_Success)

@@ -1211,6 +1211,9 @@ namespace ET
         public int Status { get; set; }
 
         [MemoryPackOrder(2)]
+        public string DBName { get; set; }
+
+        [MemoryPackOrder(3)]
         public string ServerName { get; set; }
 
         public override void Dispose()
@@ -1222,6 +1225,7 @@ namespace ET
 
             this.Id = default;
             this.Status = default;
+            this.DBName = default;
             this.ServerName = default;
 
             ObjectPool.Instance.Recycle(this);

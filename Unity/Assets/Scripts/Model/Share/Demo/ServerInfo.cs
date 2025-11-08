@@ -12,5 +12,6 @@
     {
         public int Status;
         public string ServerName;
+        public string DBName;
     }
 }

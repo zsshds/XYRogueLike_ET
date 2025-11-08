@@ -7,7 +7,7 @@ namespace ET.Client
         [EntitySystem]
         private static void Awake(this LoginPanel self)
         {
-            self.FUILoginPanel.Btn_Login.AddListner(self.OnLoginClick);
+            self.FUILoginPanel.Btn_Login.onClick.Add(self.OnLoginClick);
         }
 
         [EntitySystem]

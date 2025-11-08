@@ -39,8 +39,9 @@
                 }
 
                 ServerInfo newServerInfo = self.AddChildWithId<ServerInfo>(info.Id);
-                newServerInfo.ServerName = info.DBName;
+                newServerInfo.ServerName = info.ZoneName;
                 newServerInfo.Status = (int)ServerStatus.Normal;
+                newServerInfo.DBName = info.DBName;
                 self.ServerInfoList.Add(newServerInfo);
             }
         }

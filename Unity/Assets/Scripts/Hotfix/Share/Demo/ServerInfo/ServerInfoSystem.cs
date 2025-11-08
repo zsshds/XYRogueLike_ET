@@ -14,6 +14,7 @@
         {
             self.Status = serverInfosProto.Status;
             self.ServerName = serverInfosProto.ServerName;
+            self.DBName = serverInfosProto.DBName;
         }
 
         public static ServerInfosProto ToMessage(this ServerInfo self)
@@ -21,6 +22,7 @@
             ServerInfosProto serverInfosProto = ServerInfosProto.Create();
             serverInfosProto.Id = (int)self.Id;
             serverInfosProto.ServerName = self.ServerName;
+            serverInfosProto.DBName = self.DBName;
             serverInfosProto.Status = self.Status;
             return serverInfosProto;
         }
