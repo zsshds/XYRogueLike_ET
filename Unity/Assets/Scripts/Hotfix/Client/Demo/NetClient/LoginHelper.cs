@@ -1,9 +1,10 @@
 namespace ET.Client
 {
     [FriendOfAttribute(typeof(ET.ServerInfo))]
+    [FriendOfAttribute(typeof(ET.Client.AccountComponent))]
     public static class LoginHelper
     {
-        public static async ETTask Login(Scene root, string account, string password)
+        public static async ETTask LoginAndGetServerInfo(Scene root, string account, string password)
         {
             //先移除
             root.RemoveComponent<ClientSenderComponent>();
@@ -45,8 +46,8 @@ namespace ET.Client
                 serverInfoComponent.AddServerInfo(serverInfo);
                 Log.Info($"区服名称：{serverInfoProto.ServerName} 区服ID：{serverInfoProto.Id}, 状态：{serverInfoProto.Status}, 数据库名称：{serverInfoProto.DBName}");
             }
-            
-            
+
+
 
             // //获取区服角色列表
             // C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
@@ -113,7 +114,73 @@ namespace ET.Client
             // //记录ID,这里的PlayerComponent是游戏客户端的，和服务器端不是一种
             // root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
             //抛出登录结束事件
+            //记录ID,这里的PlayerComponent是游戏客户端的，和服务器端不是一种
+            root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
+        }
+
+        public static async ETTask EnterGame(Scene root, ServerInfosProto erverInfosProto)
+        {
+            ClientSenderComponent clientSenderComponent = root.GetComponent<ClientSenderComponent>();
+            string Token = root.GetComponent<AccountComponent>().Token;
+            string account = root.GetComponent<AccountComponent>().Account;
+            //获取区服角色列表
+            C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
+            c2RGetRoles.Token = Token;
+            c2RGetRoles.Account = account;
+            c2RGetRoles.ServerId = erverInfosProto.Id;
+            R2C_GetRoles r2CGetRoles = await clientSenderComponent.Call(c2RGetRoles) as R2C_GetRoles;
+            if (r2CGetRoles.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("请求角色信息失败！");
+                return;
+            }
+
+            RoleInfoProto roleInfoProto = default;
+            if (r2CGetRoles.RoleInfo.Count <= 0)
+            {
+                //无角色，创建角色
+                C2R_CreateRole c2RCreateRole = C2R_CreateRole.Create();
+                c2RCreateRole.Account = account;
+                c2RCreateRole.Token = Token;
+                c2RCreateRole.ServerId = erverInfosProto.Id;
+                c2RCreateRole.Name = account;
+                R2C_CreatRole r2CCreatRole = await clientSenderComponent.Call(c2RCreateRole) as R2C_CreatRole;
+                if (r2CCreatRole.Error != ErrorCode.ERR_Success)
+                {
+                    Log.Error("创建角色失败！");
+                    return;
+                }
+
+                roleInfoProto = r2CCreatRole.roleInfo;
+            }
+            else
+            {
+                roleInfoProto = r2CGetRoles.RoleInfo[0];
+            }
+
+            //请求获取RealmKey
+            C2R_GetRealmKey c2RGetRealmKey = C2R_GetRealmKey.Create();
+            c2RGetRealmKey.ServerId = erverInfosProto.Id;
+            c2RGetRealmKey.Account = account;
+            c2RGetRealmKey.Token = Token;
+            R2C_GetRealmKey r2CGetRealmKey = await clientSenderComponent.Call(c2RGetRealmKey) as R2C_GetRealmKey;
+            if (r2CGetRealmKey.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("获取RealmKey失败！");
+                return;
+            }
+            NetClient2Main_LoginGame netClient2MainLoginGame =
+                    await clientSenderComponent.LoginGameAsync(account, r2CGetRealmKey.Key, roleInfoProto.Id, r2CGetRealmKey.Address);
+            if (netClient2MainLoginGame.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("登录游戏失败！");
+                return;
+            }
+            Log.Info("登录游戏成功");
+            // 等待场景切换完成
+            await root.GetComponent<ObjectWait>().Wait<Wait_SceneChangeFinish>();
+            EventSystem.Instance.Publish(root, new EnterMapFinish());
         }
     }
 }

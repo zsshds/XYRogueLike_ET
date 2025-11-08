@@ -17,6 +17,7 @@ namespace ET.Client
         [EntitySystem]
         private static void Show(this SelectServerPanel self)
         {
+            self.Refresh();
         }
 
         private static void Refresh(this SelectServerPanel self)
@@ -29,14 +30,15 @@ namespace ET.Client
                 //这里渲染器是为了每个元素设置表现和行为
                 FUI_ServerInfoButton serverInfoButton = obj as FUI_ServerInfoButton;
                 ServerInfo serverInfo = serverInfos[index];
-                serverInfoButton.title = serverInfo.ServerName;
+                serverInfoButton.Txt_Title.text = serverInfo.ServerName;
                 //serverInfoButton.ServerInfo = serverInfo;
                 //添加点击事件
-                serverInfoButton.AddListner(() =>
+                serverInfoButton.onClick.Add(() =>
                 {
-                    
+                    LoginHelper.EnterGame(self.Root(), serverInfo.ToMessage()).Coroutine();
                 });
             };
+            self.FUISelectServerPanel.List_ServerBtn.numItems = serverInfos.Count; 
         }
     }
 }

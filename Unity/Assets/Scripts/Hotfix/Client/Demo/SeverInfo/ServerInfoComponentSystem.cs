@@ -16,7 +16,7 @@
             foreach (var serverInfoRef in self.ServerInfoList)
             {
                 ServerInfo serverInfo = serverInfoRef;
-                serverInfo.Dispose();
+                serverInfo?.Dispose();
             }
             self.ServerInfoList.Clear();
         }
